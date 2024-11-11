@@ -9,20 +9,10 @@ namespace WebBusApp.Models
     public class Usuario
     {
         public int UsuarioID { get; set; }
-
-        [Required]
         public string Nombre { get; set; }
-
-        [Required]
         public string Apellido { get; set; }
-
-        [Required]
-        [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
         public string Contrasena { get; set; }
-
         public DateTime FechaRegistro { get; set; }
         public DateTime FechaAdicion { get; set; }
         public string AdicionadoPor { get; set; }
