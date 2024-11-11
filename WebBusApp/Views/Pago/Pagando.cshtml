@@ -1,0 +1,86 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Procesar Pago de Reserva</title>
+
+    <!-- Incluir jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Procesar Pago de Reserva</h2>
+
+        <!-- Formulario de pago -->
+        <form id="formPago">
+            <div class="form-group">
+                <label for="reservaId">ID de Reserva:</label>
+                <input type="number" class="form-control" id="reservaId" placeholder="Ingrese el ID de la reserva" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Procesar Pago</button>
+        </form>
+
+        <!-- Área de mensajes -->
+        <div id="mensajePago" style="display:none;">
+            <div class="alert" id="mensajeResultado"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Manejo del envío del formulario con AJAX
+            $("#formPago").submit(function (e) {
+                e.preventDefault();
+
+                // Obtener el valor de reservaId
+                var reservaId = $("#reservaId").val();
+
+                // Validar que el ID no esté vacío
+                if (reservaId == "") {
+                    alert("Por favor ingrese un ID de reserva.");
+                    return;
+                }
+
+                // Realizar la llamada AJAX
+                $.ajax({
+                    url: '@Url.Action("ProcesarPago", "Pago")',  // Llamada a la acción ProcesarPago
+                    type: 'POST',
+                    data: { reservaId: reservaId },
+                    success: function (response) {
+                        // Mostrar mensaje de éxito o error
+                        if (response.success) {
+                            $("#mensajeResultado").removeClass("alert-danger").addClass("alert-success");
+                            $("#mensajeResultado").text(response.message);
+                        } else {
+                            $("#mensajeResultado").removeClass("alert-success").addClass("alert-danger");
+                            $("#mensajeResultado").text(response.message);
+                        }
+                        $("#mensajePago").show();  // Mostrar el mensaje
+                    },
+                    error: function () {
+                        $("#mensajeResultado").removeClass("alert-success").addClass("alert-danger");
+                        $("#mensajeResultado").text("Ocurrió un error al procesar el pago. Inténtalo nuevamente.");
+                        $("#mensajePago").show();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

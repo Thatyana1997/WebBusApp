@@ -1,0 +1,88 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reserva de Bus</title>
+
+    <!-- Incluir jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Realizar Reserva de Bus</h2>
+
+        <!-- Formulario de reserva -->
+        <form id="formReserva">
+            <div class="form-group">
+                <label for="rutaId">Ruta ID:</label>
+                <input type="number" class="form-control" id="rutaId" placeholder="Ingrese ID de la ruta" required />
+            </div>
+            <div class="form-group">
+                <label for="asiento">Asiento:</label>
+                <input type="text" class="form-control" id="asiento" placeholder="Ingrese el número de asiento" required />
+            </div>
+            <div class="form-group">
+                <label for="usuarioId">Usuario ID:</label>
+                <input type="number" class="form-control" id="usuarioId" placeholder="Ingrese ID de usuario" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Realizar Reserva</button>
+        </form>
+
+        <br />
+
+        <!-- Área de mensaje -->
+        <div id="mensajeReserva" style="display:none;">
+            <div class="alert alert-success" id="mensajeExito"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Manejo del formulario de reserva con AJAX
+            $("#formReserva").submit(function (e) {
+                e.preventDefault();
+
+                // Obtener los valores del formulario
+                var rutaId = $("#rutaId").val();
+                var asiento = $("#asiento").val();
+                var usuarioId = $("#usuarioId").val();
+
+                // Validar que los campos no estén vacíos
+                if (!rutaId || !asiento || !usuarioId) {
+                    alert("Por favor complete todos los campos.");
+                    return;
+                }
+
+                // Realizar la solicitud AJAX
+                $.ajax({
+                    url: '@Url.Action("RealizarReserva", "Reserva")',
+                    type: 'POST',
+                    data: {
+                        rutaId: rutaId,
+                        asiento: asiento,
+                        usuarioId: usuarioId
+                    },
+                    success: function (data) {
+                        // Mostrar mensaje de éxito
+                        if (data.success) {
+                            $("#mensajeExito").text(data.message);
+                            $("#mensajeReserva").show();
+                        } else {
+                            alert("Hubo un problema al realizar la reserva.");
+                        }
+                    },
+                    error: function () {
+                        alert("Error en la solicitud. Inténtelo nuevamente.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
