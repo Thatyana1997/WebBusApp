@@ -33,7 +33,7 @@ namespace WebBusApp.Controllers
 
                 // Ejecuta la consulta SQL con los parámetros usando Dapper
                 rutas = connection.Query<Ruta>(
-                    "SELECT * FROM Rutas WHERE Origen = @Origen AND Destino = @Destino AND CAST(Horario AS DATE) = @Fecha",
+                    "SELECT * FROM Rutas WHERE Origen = @Origen AND Destino = @Destino AND CAST(Horario AS DATE) = CAST(@Fecha AS DATE) ",
                     new { Origen = origen, Destino = destino, Fecha = fecha.Date }
                 ).ToList();
             }
