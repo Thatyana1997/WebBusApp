@@ -1,57 +1,49 @@
-﻿@{
-    Layout = null;
+﻿﻿@{
+    ViewBag.Title = "Buscar ruta";
 }
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Busqueda de Rutas</title>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Buscar Rutas de Buses</h2>
 
-    <!-- Incluir jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Incluir jQuery UI (para el Datepicker) si lo necesitas -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h2>Buscar Rutas de Buses</h2>
-
-        <!-- Formulario de búsqueda -->
-        <form id="formBusqueda">
-            <div class="form-group">
-                <label for="origen">Origen:</label>
-                <input type="text" class="form-control" id="origen" placeholder="Ingrese el origen" required />
-            </div>
-            <div class="form-group">
-                <label for="destino">Destino:</label>
-                <input type="text" class="form-control" id="destino" placeholder="Ingrese el destino" required />
-            </div>
-            <div class="form-group">
-                <label for="fecha">Fecha:</label>
-                <input type="text" class="form-control" id="fecha" placeholder="Seleccione la fecha" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Buscar</button>
-        </form>
-
-        <br />
-
-        <!-- Div para mostrar los resultados -->
-        <div id="resultadosBusqueda">
-            <!-- Los resultados de la búsqueda se mostrarán aquí -->
+    <!-- Formulario de búsqueda -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form id="formBusqueda">
+                <div class="form-group">
+                    <label for="origen" class="font-weight-bold">Origen:</label>
+                    <input type="text" class="form-control" id="origen" placeholder="Ingrese el origen" required />
+                </div>
+                <div class="form-group">
+                    <label for="destino" class="font-weight-bold">Destino:</label>
+                    <input type="text" class="form-control" id="destino" placeholder="Ingrese el destino" required />
+                </div>
+                <div class="form-group">
+                    <label for="fecha" class="font-weight-bold">Fecha:</label>
+                    <input type="date" class="form-control" id="fecha" required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">Buscar</button>
+            </form>
         </div>
     </div>
 
-    <script>
-        // Inicializar el selector de fecha
+    <br />
+
+    <!-- Div para mostrar los resultados -->
+    <div id="resultadosBusqueda" class="mt-4 text-center">
+        <!-- Los resultados de la búsqueda se mostrarán aquí -->
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Incluir jQuery UI solo si necesitas usar datepicker -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
         $(document).ready(function () {
-            $("#fecha").datepicker({
+            // Solo usa datepicker si no usas <input type="date">
+            /* $("#fecha").datepicker({
                 dateFormat: 'yy-mm-dd'  // Formato de fecha para enviar al controlador
-            });
+            }); */
 
             // Manejar el envío del formulario con AJAX
             $("#formBusqueda").submit(function (e) {
@@ -82,7 +74,7 @@
                         $("#resultadosBusqueda").empty();
 
                         // Comprobar si se encontraron rutas
-                        if (data.length > 0) {
+                        if (data && data.length > 0) {
                             var html = '<h3>Resultados de la búsqueda:</h3><ul>';
                             // Mostrar los resultados de la búsqueda
                             $.each(data, function (index, ruta) {
@@ -102,6 +94,4 @@
                 });
             });
         });
-    </script>
-</body>
-</html>
+</script>

@@ -1,48 +1,40 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Reservar ruta";
 }
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Reserva de Bus</title>
 
-    <!-- Incluir jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h2>Realizar Reserva de Bus</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Realizar Reserva de Bus</h2>
 
-        <!-- Formulario de reserva -->
-        <form id="formReserva">
-            <div class="form-group">
-                <label for="rutaId">Ruta ID:</label>
-                <input type="number" class="form-control" id="rutaId" placeholder="Ingrese ID de la ruta" required />
+            <!-- Formulario de reserva -->
+            <form id="formReserva">
+                <div class="form-group">
+                    <label for="rutaId" class="font-weight-bold">Ruta ID:</label>
+                    <input type="number" class="form-control" id="rutaId" placeholder="Ingrese ID de la ruta" required />
+                </div>
+                <div class="form-group">
+                    <label for="asiento" class="font-weight-bold">Asiento:</label>
+                    <input type="text" class="form-control" id="asiento" placeholder="Ingrese el número de asiento" required />
+                </div>
+                <div class="form-group">
+                    <label for="usuarioId" class="font-weight-bold">Usuario ID:</label>
+                    <input type="number" class="form-control" id="usuarioId" placeholder="Ingrese ID de usuario" required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Realizar Reserva</button>
+            </form>
+
+            <!-- Área de mensaje -->
+            <div id="mensajeReserva" class="mt-3" style="display:none;">
+                <div class="alert" id="mensajeExito"></div>
             </div>
-            <div class="form-group">
-                <label for="asiento">Asiento:</label>
-                <input type="text" class="form-control" id="asiento" placeholder="Ingrese el número de asiento" required />
-            </div>
-            <div class="form-group">
-                <label for="usuarioId">Usuario ID:</label>
-                <input type="number" class="form-control" id="usuarioId" placeholder="Ingrese ID de usuario" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Realizar Reserva</button>
-        </form>
-
-        <br />
-
-        <!-- Área de mensaje -->
-        <div id="mensajeReserva" style="display:none;">
-            <div class="alert alert-success" id="mensajeExito"></div>
         </div>
     </div>
-
-    <script>
+</div>
+<!-- Incluir jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
         $(document).ready(function () {
             // Manejo del formulario de reserva con AJAX
             $("#formReserva").submit(function (e) {
@@ -83,6 +75,5 @@
                 });
             });
         });
-    </script>
-</body>
-</html>
+</script>
+
