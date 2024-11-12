@@ -26,5 +26,26 @@ namespace WebBusApp.Controllers
 
             return View();
         }
+
+        public ActionResult BuscarRuta()
+        {
+            ViewBag.Message = "BuscarRuta la ruta";
+
+            return View();
+        }
+
+        public ActionResult Pagando()
+        {
+            ViewBag.Message = "Pagando...";
+
+            return View();
+        }
+
+        public ActionResult ReservarRuta()
+        {
+            ViewBag.Message = "ReservarRuta...";
+
+            return View();
+        }
     }
 }
